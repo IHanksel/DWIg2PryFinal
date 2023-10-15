@@ -32,7 +32,10 @@ public class AlumnoDAO {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al ejecutar la consulta SQL: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error durante la operación en la base de datos: " + e.getMessage(), e);
+        } finally {
         }
     }
 
@@ -128,12 +131,38 @@ public class AlumnoDAO {
                 carreraAlumnoCount.put(carrera, cantidad);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al ejecutar la consulta SQL: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error durante la operación en la base de datos: " + e.getMessage(), e);
         } finally {
-
         }
 
         return carreraAlumnoCount;
+    }
+
+    // Método para modificar datos de alumno registrado
+    public void modificarRegistroAlumno(Alumno alumno) {
+        Connection con = MySQLConexion.getConexion();
+        try {
+            try (PreparedStatement statement = con.prepareStatement(
+                    "UPDATE alumno SET Nombres=?, Apellidos=?, DNI=?, Direccion=?, Telefono=?, Nombre_carrera_profesional=? WHERE Codigo=?")) {
+
+                statement.setString(1, alumno.getNombres());
+                statement.setString(2, alumno.getApellidos());
+                statement.setString(3, alumno.getDni());
+                statement.setString(4, alumno.getDireccion());
+                statement.setString(5, alumno.getTelefono());
+                statement.setString(6, alumno.getCarrera());
+                statement.setString(7, alumno.getCodigo());
+                statement.execute();
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al ejecutar la consulta SQL: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error durante la operación en la base de datos: " + e.getMessage(), e);
+        } finally {
+        }
     }
 
 }

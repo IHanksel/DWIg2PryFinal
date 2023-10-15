@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <link href="../css/mantenimiento.css" rel="stylesheet" type="text/css"/>
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -78,8 +79,27 @@
                 </div>
             </section>
 
+            <section class="section1">
+                <label>Filtrar por nombre:</label>
+                <input id="txtdocente" oninput="filtrarDocentes()">
+            </section>
+
             <section>
-                <h1>Aqui empezar</h1>
+                <table id="tablaresdocente" class="table table-hover">
+                    <thead>
+                        <tr class="text-white bg-black">
+                            <th>Código</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>DNI</th>
+                            <th>Especialidad</th>
+                            <th>Correo</th>
+                            <th>Modificar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <!-- Aquí deberías mostrar los datos de los docentes en filas de la tabla -->
+                </table>
             </section>
         </main>
 
