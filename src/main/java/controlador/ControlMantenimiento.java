@@ -41,7 +41,7 @@ public class ControlMantenimiento extends HttpServlet {
         request.getRequestDispatcher(pag).forward(request, response);
     }
     
-    */protected void filtrarDocentesPorNombre(HttpServletRequest request, HttpServletResponse response)
+    /*protected void filtrarDocentesPorNombre(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         String consulta = request.getParameter("consulta");
