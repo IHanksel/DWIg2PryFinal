@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sistema de Matrícula</title>
+        <link rel="stylesheet" href="css/reset.css" />
+        <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/nosotros_y_jsp.css" />
+        <link rel="stylesheet" href="css/footer.css" />
+    </head>
+    <body id="inicio">
+        <header class="header-transparente">
+            <div class="caja">
+                <nav>
+                    <ul>
+                        <li>
+                            <div class="dropdown">
+                                <a class="dropbtn">Registrar</a>
+                                <div class="dropdown-content">
+                                    <a href="vistaAlumno/registrarAlumno.jsp">Alumno</a>
+                                    <a href="vistaDocente/registrarDocente.jsp">Docente</a>
+                                    <a href="vistaAsignatura/registrarAsignatura.jsp">Asignatura</a>
+                                    <a href="vistaCarreraProfesional/registrarCarreraProfesional.jsp">Carrera profesional</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <a class="dropbtn">Mantenimiento</a>
+                                <div class="dropdown-content">
+                                    <a href="vistaAlumno/mantenimientoAlumno.jsp">Alumno</a>
+                                    <a href="vistaDocente/mantenimientoDocente.jsp">Docente</a>
+                                    <a href="vistaAsignatura/mantenimientoAsignatura.jsp">Asignatura</a>
+                                    <a href="vistaCarreraProfesional/mantenimientoCarreraProfesional.jsp">Carrera profesional</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <a class="dropbtn">Reportes</a>
+                                <div class="dropdown-content">
+                                    <a href="vistaAlumno/reporteAlumno.jsp">Alumno</a>
+                                    <a href="vistaDocente/reporteDocente.jsp">Docente</a>
+                                    <a href="vistaAsignatura/reporteAsignatura.jsp">Asignatura</a>
+                                    <a href="vistaCarreraProfesional/reporteCarreraProfesional.jsp">Carrera profesional</a>
+                                    <a href="vistaMatricula/reporteMatricula.jsp">Matrícula</a>
+                                    <a></a>
+                                    <a href="vistaAlumno/graficoAlumno.jsp">Gráfico Alumno</a>
+                                    <a href="vistaDocente/graficoDocente.jsp">Gráfico Docente</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <a href="vistaMatricula/paginaMatricula.jsp" class="boton-blanco">Matrícula Alumnos</a>
+                        </li>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section class="titulo">
+                <div class="banner-wrapper">
+                    <div class="texto">
+                        <h1>Sobre Nosotros</h1>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <img src="imagenes/logo-utpHorizontal.png" class="imagen-utp">
+                <p class="info">
+                    Este sitio web es parte del proyecto final del curso Desarrollo Web Integrado. Los
+                    estudiantes que desarrollaron este trabajo forman parte de la Universidad Tecnológica del Perú.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <p class="fondo">Todos los derechos reservados</p>
+        </footer>
+    </body>
+
+    <script>
+        function toggleDropdown(dropdownId) {
+            var dropdown = document.getElementById(dropdownId);
+
+            var dropdownContent = dropdown.querySelector(".dropdown-content");
+
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        }
+
+        document.getElementById("registrarDropdown").addEventListener("click", function () {
+            toggleDropdown("registrarDropdown");
+        });
+
+        document.getElementById("mantenimientoDropdown").addEventListener("click", function () {
+            toggleDropdown("mantenimientoDropdown");
+        });
+
+        document.getElementById("reportesDropdown").addEventListener("click", function () {
+            toggleDropdown("reportesDropdown");
+        });
+    </script>
+
+
+</html>

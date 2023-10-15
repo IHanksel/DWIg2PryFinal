@@ -1,0 +1,25 @@
+
+.section1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 50px;
+    font-weight: bold;
+    margin-top: 56px;
+    margin-bottom: 10px;
+}
+
+.section1 label{
+    margin-right: 20px;
+}
+
+.section1 input,
+.section1 select {
+    width: 20%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+

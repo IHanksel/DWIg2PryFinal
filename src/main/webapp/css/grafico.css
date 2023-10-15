@@ -1,0 +1,18 @@
+.grafico {
+    text-align: center; /* Centra horizontalmente el contenido */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente el contenido */
+    align-items: center; /* Centra horizontalmente el contenido */
+    height: 100vh; /* Esto centra verticalmente en la página completa */
+}
+
+.grafico h1{
+    padding: 20px;
+    font-size: 25px;
+}
+
+.grafico input {
+    margin-top: 40px;
+}
+
