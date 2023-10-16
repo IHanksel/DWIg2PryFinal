@@ -19,14 +19,10 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
         <link href="/SistemaUniversidad/css/mantenimiento.css" rel="stylesheet" type="text/css"/>
-        <script src="/SistemaUniversidad/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-        <script src="/SistemaUniversidad/js/filtrar.js" type="text/javascript"></script>
 
     </head>
     <body id="inicio">
-        <%
-            AlumnoDAO alumnoDAO = new AlumnoDAO();
-        %> 
+
         <header class="header-transparente">
             <div class="caja">
                 <nav>
@@ -88,13 +84,11 @@
                 </div>
             </section>
 
-            <section class="section1">
-                <label>Filtrar por nombre:</label>
-                <input id="txtalumno">
-                </table>
-            </section>
-
+            <iframe name="zona" width="100%" height="200"></iframe>   
             <section>
+                <%
+                    AlumnoDAO alumnoDAO = new AlumnoDAO();
+                %> 
 
                 <table id="tablaresalumno" class="table table-hover">
                     <thead>
@@ -102,6 +96,19 @@
                             <th>Código<th>Nombres<th>Apellidos<th>DNI<th>Dirección
                             <th>Teléfono<th>Carrera<th>Modificar<th>Eliminar
                     </thead>
+
+                    <%
+                        for (Alumno alumno : alumnoDAO.listado()) {
+                    %>
+                    <tr><td><%=alumno.getCodigo()%><td><%=alumno.getNombres()%>
+                        <td><%=alumno.getApellidos()%><td><%=alumno.getDni()%><td><%=alumno.getDireccion()%>
+                        <td><%=alumno.getTelefono()%><td><%=alumno.getCarrera()%>
+                        <td><a href="/SistemaUniversidad/ControlMantenimiento?opcion=1&codigo=<%=alumno.getCodigo()%>">Modificar</a>
+                        <td><a href="/SistemaUniversidad/ControlMantenimiento?opcion=2&codigo=<%=alumno.getCodigo()%>">Eliminar</a>
+
+                            <%
+                                }
+                            %>
                 </table>
             </section>
         </main>

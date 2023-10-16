@@ -4,6 +4,9 @@
     Author     : abdel
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="modelo.Docente"%>
+<%@page import="dao.DocenteDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +18,7 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
-        <link href="../css/mantenimiento.css" rel="stylesheet" type="text/css"/>
+        <link href="/SistemaUniversidad/css/mantenimiento.css" rel="stylesheet" type="text/css"/>
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -79,13 +82,8 @@
                 </div>
             </section>
 
-            <section class="section1">
-                <label>Filtrar por nombre:</label>
-                <input id="txtdocente" oninput="filtrarDocentes()">
-            </section>
-
             <section>
-                <table id="tablaresdocente" class="table table-hover">
+                <table id="tablaresdocentes" class="table table-hover">
                     <thead>
                         <tr class="text-white bg-black">
                             <th>Código</th>
@@ -94,14 +92,43 @@
                             <th>DNI</th>
                             <th>Especialidad</th>
                             <th>Correo</th>
-                            <th>Modificar</th>
                             <th>Eliminar</th>
+                            <th>Modificar</th>
                         </tr>
                     </thead>
-                    <!-- Aquí deberías mostrar los datos de los docentes en filas de la tabla -->
+
+                    <tbody>
+                        <%
+                            DocenteDAO docenteDAO = new DocenteDAO();
+                            try {
+                                List<Docente> listaDocentes = docenteDAO.obtenerTodos();
+                                for (Docente docente : listaDocentes) {
+                        %>
+                        <tr>
+                            <td><%=docente.getCodigo()%></td>
+                            <td><%=docente.getNombres()%></td>
+                            <td><%=docente.getApellidos()%></td>
+                            <td><%=docente.getDni()%></td>
+                            <td><%=docente.getEspecialidad()%></td>
+                            <td><%=docente.getCorreo()%></td>
+                            <td>
+                                <a href="/SistemaUniversidad/ControlMantenimiento?opcion=5&codigo=<%=docente.getCodigo()%>">Eliminar</a>
+                            </td>
+                            <td>
+                                <a href="/SistemaUniversidad/ControlMantenimiento?opcion=6&codigo=<%=docente.getCodigo()%>">Modificar</a>
+                            </td>
+                        </tr>
+                        <%
+                                }
+                            } catch (Exception e) {
+                                out.println("Error al obtener la lista de docentes: " + e.getMessage());
+                            }
+                        %>
+                    </tbody>
                 </table>
             </section>
         </main>
+
 
         <footer>
             <p class="fondo">Todos los derechos reservados</p>

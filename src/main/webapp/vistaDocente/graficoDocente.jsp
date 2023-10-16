@@ -4,7 +4,9 @@
     Author     : abdel
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Map"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="modelo.Docente, dao.DocenteDAO" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,8 +17,10 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <script src="/SistemaUniversidad/js/Chart.min.js" type="text/javascript"></script>
     </head>
     <body id="inicio">
+
         <header class="header-transparente">
             <div class="caja">
                 <nav>
@@ -77,14 +81,67 @@
                     </div>
                 </div>
             </section>
-            
+
             <section>
-                <h1>Aqui empezar</h1>
+                <div class="container">
+                    <div>
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+
+                <script>
+                    var ctx = document.getElementById("myChart").getContext("2d");
+
+                    // Asegúrate de tener la lógica adecuada en DocenteDAO
+                    var labels = [
+                    <%
+                        DocenteDAO docenteDAO = new DocenteDAO();
+                        Map<String, Integer> especialidadDocenteCount = docenteDAO.contarDocentesPorEspecialidad();
+                        for (Map.Entry<String, Integer> entry : especialidadDocenteCount.entrySet()) {
+                            out.print("'" + entry.getKey() + "',");
+                        }
+                    %>
+
+                    ];
+
+                    var data = [
+                    <%
+                        for (Map.Entry<String, Integer> entry : especialidadDocenteCount.entrySet()) {
+                            out.print(entry.getValue() + ",");
+                        }
+                    %>
+                    ];
+
+                    <%
+                        String op = "bar";
+                    %>
+
+                    var myChart = new Chart(ctx, {
+                        type: "<%=op%>",
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                    label: "Cantidad de Docentes",
+                                    data: data,
+                                    backgroundColor: [
+                                        'rgba(0, 0, 0, 0.1)',
+                                        'rgba(0, 0, 0, 0.3)',
+                                        'rgba(0, 0, 0, 0.5)',
+                                        'rgba(0, 0, 0, 0.7)',
+                                        'rgba(0, 0, 0, 0.9)',
+                                    ],
+                                }],
+                        },
+                    });
+                </script>
             </section>
         </main>
+
+
 
         <footer>
             <p class="fondo">Todos los derechos reservados</p>
         </footer>
+
     </body>
 </html>

@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import modelo.Docente;
 import util.MySQLConexion;
 
@@ -135,29 +137,28 @@ public class DocenteDAO {
 
     public List<Docente> obtenerTodos() {
         Connection con = MySQLConexion.getConexion();
+        String sql = "SELECT Codigo, Nombres, Apellidos, DNI, Especialidad, Correo FROM docente";
         List<Docente> docentes = new ArrayList<>();
-        try {
-            try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery("SELECT * FROM docente")) {
 
+        try {
+            try (PreparedStatement statement = con.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Docente docente = new Docente(
-                            resultSet.getString("Codigo"),
-                            resultSet.getString("Nombres"),
-                            resultSet.getString("Apellidos"),
-                            resultSet.getString("DNI"),
-                            resultSet.getString("Especialidad"),
-                            resultSet.getString("Correo")
-                    );
+                    Docente docente = new Docente();
+                    docente.setCodigo(resultSet.getString("Codigo"));
+                    docente.setNombres(resultSet.getString("Nombres"));
+                    docente.setApellidos(resultSet.getString("Apellidos"));
+                    docente.setDni(resultSet.getString("DNI"));
+                    docente.setEspecialidad(resultSet.getString("Especialidad"));
+                    docente.setCorreo(resultSet.getString("Correo"));
                     docentes.add(docente);
                 }
             }
-
         } catch (SQLException e) {
             throw new RuntimeException("Error al ejecutar la consulta SQL: " + e.getMessage(), e);
-        } catch (Exception e) {
-            throw new RuntimeException("Error durante la operación en la base de datos: " + e.getMessage(), e);
         } finally {
+            // Cerrar la conexión u realizar tareas de limpieza, si es requerido
         }
+
         return docentes;
     }
 
@@ -182,5 +183,28 @@ public class DocenteDAO {
             throw new RuntimeException("Error durante la operación en la base de datos: " + e.getMessage(), e);
         } finally {
         }
+    }
+
+    // Método para contar docentes por especialidad
+    public Map<String, Integer> contarDocentesPorEspecialidad() {
+        Connection con = MySQLConexion.getConexion();
+        Map<String, Integer> especialidadDocenteCount = new HashMap<>();
+
+        try {
+            String sql = "SELECT Especialidad, COUNT(*) FROM docente GROUP BY Especialidad";
+            try (PreparedStatement statement = con.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    String especialidad = resultSet.getString(1);
+                    int cantidad = resultSet.getInt(2);
+                    especialidadDocenteCount.put(especialidad, cantidad);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al ejecutar la consulta SQL: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error durante la operación en la base de datos: " + e.getMessage(), e);
+        }
+
+        return especialidadDocenteCount;
     }
 }

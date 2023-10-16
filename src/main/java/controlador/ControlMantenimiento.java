@@ -21,29 +21,34 @@ public class ControlMantenimiento extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int opcion = Integer.parseInt(request.getParameter("opcion"));
-        switch (opcion) {
-            case 1:
-                filtrarAlumnosPorNombre(request, response);
-                break;
-            case 2:
-                eliminarRegistro(request, response, alumnoDAO, PAG_MANTENIMIENTO_ALUMNO);
-                break;
-            case 3:
-                modificarRegistroAlumno(request, response);
-                break;
-            case 4:
-                filtrarDocentesPorNombre(request, response);
-                break;
-            case 5:
-                eliminarRegistro(request, response, docenteDAO, PAG_MANTENIMIENTO_DOCENTE);
-                break;
-            case 6:
-                modificarRegistroDocente(request, response);
-                break;
-            default:
-                // Manejar opción no válida, si es necesario
-                break;
+        try {
+            int opcion = Integer.parseInt(request.getParameter("opcion"));
+            switch (opcion) {
+                case 1:
+                    filtrarAlumnosPorNombre(request, response);
+                    break;
+                case 2:
+                    eliminarRegistro(request, response, alumnoDAO, PAG_MANTENIMIENTO_ALUMNO);
+                    break;
+                case 3:
+                    modificarRegistroAlumno(request, response);
+                    break;
+                case 4:
+                    filtrarDocentesPorNombre(request, response);
+                    break;
+                case 5:
+                    eliminarRegistro(request, response, docenteDAO, PAG_MANTENIMIENTO_DOCENTE);
+                    break;
+                case 6:
+                    modificarRegistroDocente(request, response);
+                    break;
+                default:
+                    // Manejar opción no válida, si es necesario
+                    break;
+            }
+        } catch (Exception e) {
+            request.setAttribute("error", "Error en la operación: " + e.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
 
@@ -91,18 +96,17 @@ public class ControlMantenimiento extends HttpServlet {
     
     protected void eliminarRegistroAlumno(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-           String codigo = request.getParameter("codigo");
-           alumnoDAO.eliminarRegistroAlumno(codigo);
-           String pag = PAG_MANTENIMIENTO_ALUMNO;
-           request.getRequestDispatcher(pag).forward(request, response);
-       } catch (Exception e) {
-           request.setAttribute("error", "Error al eliminar el registro del alumno: " + e.getMessage());
-           request.getRequestDispatcher("/error.jsp").forward(request, response);
-       }
+        try {
+            String codigo = request.getParameter("codigo");
+            alumnoDAO.eliminarRegistroAlumno(codigo);
+            String pag = PAG_MANTENIMIENTO_ALUMNO;
+            request.getRequestDispatcher(pag).forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al eliminar el registro del alumno: " + e.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        }
     }
-
-    
+ 
     protected void filtrarDocentesPorNombre(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
@@ -145,15 +149,15 @@ public class ControlMantenimiento extends HttpServlet {
     
     protected void eliminarRegistroDocente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-           String codigo = request.getParameter("codigo");
-           docenteDAO.eliminarRegistroDocente(codigo);
-           String pag = PAG_MANTENIMIENTO_DOCENTE;
-           request.getRequestDispatcher(pag).forward(request, response);
-       } catch (Exception e) {
-           request.setAttribute("error", "Error al eliminar el registro del docente: " + e.getMessage());
-           request.getRequestDispatcher("/error.jsp").forward(request, response);
-       }
+        try {
+            String codigo = request.getParameter("codigo");
+            docenteDAO.eliminarRegistroDocente(codigo);
+            String pag = PAG_MANTENIMIENTO_DOCENTE;
+            request.getRequestDispatcher(pag).forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al eliminar el registro del docente: " + e.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        }
     }
     
     private void eliminarRegistro(HttpServletRequest request, HttpServletResponse response, Object dao, String page)
