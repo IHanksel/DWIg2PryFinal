@@ -4,6 +4,8 @@
     Author     : abdel
 --%>
 
+<%@page import="modelo.Alumno"%>
+<%@page import="dao.AlumnoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,8 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <link rel="stylesheet" href="/SistemaUniversidad/css/adminlte.min.css" />
+        <link href="../css/reportes.css" rel="stylesheet" type="text/css"/>
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -77,10 +81,32 @@
                     </div>
                 </div>
             </section>
-            
-            <section>
-                <h1>Aqui empezar</h1>
-            </section>
+
+            <%
+                AlumnoDAO obj = new AlumnoDAO();
+            %>    
+            <center>
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="text-white bg-black">
+                            <th>Código<th>Nombres<th>Apellidos<th>DNI<th>Dirección<th>Teléfono<th>Carrera        
+                    </thead>   
+                    <%
+                        for (Alumno x : obj.listado()) {
+                    %>
+                    <tr><td><%=x.getCodigo()%>
+                        <td><%=x.getNombres()%>
+                        <td><%=x.getApellidos()%>
+                        <td><%=x.getDni()%>
+                        <td><%=x.getDireccion()%>
+                        <td><%=x.getTelefono()%>
+                        <td><%=x.getCarrera()%>
+                            <%
+                                }
+                            %> 
+                </table>
+            </center>
+
         </main>
 
         <footer>

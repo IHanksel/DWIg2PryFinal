@@ -92,7 +92,7 @@
                 <script>
                     var ctx = document.getElementById("myChart").getContext("2d");
 
-                    // Asegúrate de tener la lógica adecuada en DocenteDAO
+                    
                     var labels = [
                     <%
                         DocenteDAO docenteDAO = new DocenteDAO();

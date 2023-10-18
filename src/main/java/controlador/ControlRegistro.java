@@ -1,17 +1,30 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package controlador;
 
-import dao.*;
+import dao.AlumnoDAO;
+import dao.CarreraProfesionalDAO;
+import dao.DocenteDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.*;
+import modelo.Alumno;
+import modelo.CarreraProfesional;
+import modelo.Docente;
 
+/**
+ *
+ * @author abdel
+ */
 public class ControlRegistro extends HttpServlet {
 
     AlumnoDAO alumnoDAO = new AlumnoDAO();
     DocenteDAO docenteDAO = new DocenteDAO();
+    CarreraProfesionalDAO carreraProfesionalDAO = new CarreraProfesionalDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -21,6 +34,9 @@ public class ControlRegistro extends HttpServlet {
         }
         if (opcion == 2) {
             ingresarDatosDocente(request, response);
+        }
+        if (opcion == 3) {
+            ingresarDatosCarreraProfesional(request, response);
         }
     }
 
@@ -42,7 +58,7 @@ public class ControlRegistro extends HttpServlet {
         String pagina = "/vistaAlumno/registrarAlumno.jsp";
         request.getRequestDispatcher(pagina).forward(request, response);
     }
-    
+
     protected void ingresarDatosDocente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -58,6 +74,19 @@ public class ControlRegistro extends HttpServlet {
 
         docenteDAO.guardar(docente);
         String pagina = "/vistaDocente/registrarDocente.jsp";
+        request.getRequestDispatcher(pagina).forward(request, response);
+    }
+
+    protected void ingresarDatosCarreraProfesional(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        CarreraProfesional carreraProfesional = new CarreraProfesional();
+        carreraProfesional.setCodigo(request.getParameter("codigo"));
+        carreraProfesional.setNombre(request.getParameter("nombre"));
+        carreraProfesional.setModalidad(request.getParameter("modalidad"));
+
+        carreraProfesionalDAO.guardar(carreraProfesional);
+        String pagina = "/vistaCarreraProfesional/registrarCarreraProfesional.jsp";
         request.getRequestDispatcher(pagina).forward(request, response);
     }
 

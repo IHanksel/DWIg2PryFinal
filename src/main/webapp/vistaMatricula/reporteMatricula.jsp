@@ -1,9 +1,12 @@
 <%-- 
     Document   : reporteMatricula
-    Created on : 10 oct. 2023, 19:02:14
-    Author     : abdel
+    Created on : 15 oct. 2023, 17:25:14
+    Author     : samanta
 --%>
 
+<%@page import="modelo.Matricula"%>
+<%@page import="dao.MatriculaDAO"%>
+<%@page import="dao.AlumnoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +18,7 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <link rel="stylesheet" href="/SistemaUniversidad/css/adminlte.min.css" />
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -51,7 +55,8 @@
                                     <a href="/SistemaUniversidad/vistaDocente/reporteDocente.jsp">Docente</a>
                                     <a href="/SistemaUniversidad/vistaAsignatura/reporteAsignatura.jsp">Asignatura</a>
                                     <a href="/SistemaUniversidad/vistaCarreraProfesional/reporteCarreraProfesional.jsp">Carrera profesional</a>
-                                    <a href="#">Matrícula</a>
+                                    <a href="/SistemaUniversidad/vistaMatricula/reporteMatricula.jsp">Matrícula</a>
+
                                     <a></a>
                                     <a href="/SistemaUniversidad/vistaAlumno/graficoAlumno.jsp">Gráfico Alumno</a>
                                     <a href="/SistemaUniversidad/vistaDocente/graficoDocente.jsp">Gráfico Docente</a>
@@ -77,10 +82,34 @@
                     </div>
                 </div>
             </section>
-            
-            <section>
-                <h1>Aqui empezar</h1>
-            </section>
+
+            <%
+                MatriculaDAO obj = new MatriculaDAO();
+            %>    
+            <center>
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="text-white bg-black">
+                            <th>Código Alumno<th>Nombres<th>Apellidos<th>Nombre Asignatura<th>Código Matricula<th>Semestre<th>Carrera<th>Turno<th>Fecha          
+                    </thead>   
+                    <%
+                        for (Matricula x : obj.ListMatri()) {
+                    %>
+                    <tr><td><%=x.getCodigo()%>
+                        <td><%=x.getNombres()%>
+                        <td><%=x.getApellidos()%>
+                        <td><%=x.getNombreAsignatura()%>
+                        <td><%=x.getId()%>
+                        <td><%=x.getSemestre()%>
+                        <td><%=x.getCarrera()%>
+                        <td><%=x.getTurno()%>  
+                        <td><%=x.getFechaMatricula()%>     
+                            <%
+                                }
+                            %> 
+                </table>
+            </center>
+
         </main>
 
         <footer>

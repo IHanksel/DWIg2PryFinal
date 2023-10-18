@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <link href="../css/adminlte.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/registrar.css" rel="stylesheet" type="text/css"/>
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -77,9 +79,29 @@
                     </div>
                 </div>
             </section>
-            
-            <section>
-                <h1>Aqui empezar</h1>
+
+            <section class="ingresar-datos">
+                <form action="/SistemaUniversidad/ControlRegistro" method="post">
+                    <div class="form-group">
+                        <label>Código de carrera profesional:</label>
+                        <input type="text" name="codigo">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre de nueva carrera:</label>
+                        <input type="text" name="nombre">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Modalidad:</label>
+                        <input type="text" name="modalidad">
+                    </div>
+
+                    <div class="form-group button-container">
+                        <td><input type="hidden" name="opcion" value="3"></td>
+                        <input type="submit" value="Guardar">
+                    </div>
+                </form>
             </section>
         </main>
 

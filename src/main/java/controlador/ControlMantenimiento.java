@@ -1,183 +1,159 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package controlador;
 
-import com.google.gson.Gson;
-import dao.*;
-import modelo.*;
+import dao.AlumnoDAO;
+import dao.CarreraProfesionalDAO;
+import dao.DocenteDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Alumno;
+import modelo.CarreraProfesional;
+import modelo.Docente;
 
+/**
+ *
+ * @author abdel
+ */
 public class ControlMantenimiento extends HttpServlet {
 
     AlumnoDAO alumnoDAO = new AlumnoDAO();
+    CarreraProfesionalDAO carreraProfesionalDAO = new CarreraProfesionalDAO();
     DocenteDAO docenteDAO = new DocenteDAO();
-    
-    // Constantes de las URL de las páginas
-    private static final String PAG_MANTENIMIENTO_ALUMNO = "/vistaAlumno/mantenimientoAlumno.jsp";
-    private static final String PAG_MANTENIMIENTO_DOCENTE = "/vistaDocente/mantenimientoDocente.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int opcion = Integer.parseInt(request.getParameter("opcion"));
-            switch (opcion) {
-                case 1:
-                    filtrarAlumnosPorNombre(request, response);
-                    break;
-                case 2:
-                    eliminarRegistro(request, response, alumnoDAO, PAG_MANTENIMIENTO_ALUMNO);
-                    break;
-                case 3:
-                    modificarRegistroAlumno(request, response);
-                    break;
-                case 4:
-                    filtrarDocentesPorNombre(request, response);
-                    break;
-                case 5:
-                    eliminarRegistro(request, response, docenteDAO, PAG_MANTENIMIENTO_DOCENTE);
-                    break;
-                case 6:
-                    modificarRegistroDocente(request, response);
-                    break;
-                default:
-                    // Manejar opción no válida, si es necesario
-                    break;
-            }
-        } catch (Exception e) {
-            request.setAttribute("error", "Error en la operación: " + e.getMessage());
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        int opcion = Integer.parseInt(request.getParameter("opcion"));
+        if (opcion == 1) {
+            modificarRegistroAlumno(request, response);
+        }
+        if (opcion == 2) {
+            eliminarRegistroAlumno(request, response);
+        }
+        if (opcion == 3) {
+            cambiarDatosModificadosDeAlumno(request, response);
+        }
+
+        if (opcion == 4) {
+            modificarRegistroCarreraProfesional(request, response);
+        }
+        if (opcion == 5) {
+            eliminarRegistroCarreraProfesional(request, response);
+        }
+        if (opcion == 6) {
+            cambiarDatosModificadosDeCarreraProfesional(request, response);
+        }
+
+        if (opcion == 7) {
+            modificarRegistroDocente(request, response);
+        }
+        if (opcion == 8) {
+            eliminarRegistroDocente(request, response);
+        }
+        if (opcion == 9) {
+            cambiarDatosModificadosDeDocente(request, response);
         }
     }
 
-    protected void filtrarAlumnosPorNombre(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        String consulta = request.getParameter("consulta");
-        Gson gs = new Gson();
-        out.print(gs.toJson(alumnoDAO.filtrarPorNombreAlumno(consulta)));
-    }
-    
-    protected void modificarRegistroAlumno(HttpServletRequest request, HttpServletResponse response)
+    protected void eliminarRegistroAlumno(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String codigo = request.getParameter("codigo");
-        String nuevosNombres = request.getParameter("nuevosNombres");
-        String nuevosApellidos = request.getParameter("nuevosApellidos");
-        String nuevoDni = request.getParameter("nuevoDni");
-        String nuevaDireccion = request.getParameter("nuevaDireccion");
-        String nuevoTelefono = request.getParameter("nuevoTelefono");
-        String nuevaCarrera = request.getParameter("nuevaCarrera");
-
-        Alumno alumno = new Alumno();
-        alumno.setCodigo(codigo);
-        alumno.setNombres(nuevosNombres);
-        alumno.setApellidos(nuevosApellidos);
-        alumno.setDni(nuevoDni);
-        alumno.setDireccion(nuevaDireccion);
-        alumno.setTelefono(nuevoTelefono);
-        alumno.setCarrera(nuevaCarrera);
-
-        alumnoDAO.modificarRegistroAlumno(alumno);
-
+        alumnoDAO.eliminarAlumnoYMatriculas(codigo);
         String pag = "/vistaAlumno/mantenimientoAlumno.jsp";
         request.getRequestDispatcher(pag).forward(request, response);
     }
-    
-    // El "eliminarRegistroAlumno" anterior [descomentar en caso de errores con el actual]
-    /*protected void eliminarRegistroAlumno(HttpServletRequest request, HttpServletResponse response)
+
+    protected void modificarRegistroAlumno(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String codigo = request.getParameter("codigo");
-        alumnoDAO.eliminarRegistroAlumno(codigo);
-        String pag = PAG_MANTENIMIENTO_ALUMNO;
+        Alumno alumno = alumnoDAO.consulta(codigo);
+        request.setAttribute("dato", alumno);
+        String pag = "/vistaAlumno/editarAlumno.jsp";
         request.getRequestDispatcher(pag).forward(request, response);
-    }*/
-    
-    protected void eliminarRegistroAlumno(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            String codigo = request.getParameter("codigo");
-            alumnoDAO.eliminarRegistroAlumno(codigo);
-            String pag = PAG_MANTENIMIENTO_ALUMNO;
-            request.getRequestDispatcher(pag).forward(request, response);
-        } catch (Exception e) {
-            request.setAttribute("error", "Error al eliminar el registro del alumno: " + e.getMessage());
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
-        }
     }
- 
-    protected void filtrarDocentesPorNombre(HttpServletRequest request, HttpServletResponse response)
+
+    protected void cambiarDatosModificadosDeAlumno(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        String consulta = request.getParameter("consulta");
-        Gson gs = new Gson();
-        out.print(gs.toJson(docenteDAO.filtrarPorNombreDocente(consulta)));
+        Alumno alumno = new Alumno();
+        alumno.setCodigo(request.getParameter("codigo"));
+        alumno.setNombres(request.getParameter("nombres"));
+        alumno.setApellidos(request.getParameter("apellidos"));
+        alumno.setDni(request.getParameter("dni"));
+        alumno.setDireccion(request.getParameter("direccion"));
+        alumno.setTelefono(request.getParameter("telefono"));
+        alumno.setCarrera(request.getParameter("carrera"));
+
+        alumnoDAO.modificarAlumno(alumno);
+        String pag = "/vistaAlumno/mantenimientoAlumno.jsp";
+        request.getRequestDispatcher(pag).forward(request, response);
     }
-    
-    protected void modificarRegistroDocente(HttpServletRequest request, HttpServletResponse response)
+
+    protected void eliminarRegistroCarreraProfesional(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String codigo = request.getParameter("codigo");
-        String nuevosNombres = request.getParameter("nuevosNombres");
-        String nuevosApellidos = request.getParameter("nuevosApellidos");
-        String nuevoDni = request.getParameter("nuevoDni");
-        String nuevaEspecialidad = request.getParameter("nuevaEspecialidad");
-        String nuevoCorreo = request.getParameter("nuevoCorreo");
+        carreraProfesionalDAO.eliminarCarreraProfesional(codigo);
+        String pag = "/vistaCarreraProfesional/mantenimientoCarreraProfesional.jsp";
+        request.getRequestDispatcher(pag).forward(request, response);
+    }
 
-        Docente docente = new Docente();
-        docente.setCodigo(codigo);
-        docente.setNombres(nuevosNombres);
-        docente.setApellidos(nuevosApellidos);
-        docente.setDni(nuevoDni);
-        docente.setEspecialidad(nuevaEspecialidad);
-        docente.setCorreo(nuevoCorreo);
+    protected void modificarRegistroCarreraProfesional(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String codigo = request.getParameter("codigo");
+        CarreraProfesional carreraProfesional = carreraProfesionalDAO.consulta(codigo);
+        request.setAttribute("dato", carreraProfesional);
+        String pag = "/vistaCarreraProfesional/editarCarreraProfesional.jsp";
+        request.getRequestDispatcher(pag).forward(request, response);
+    }
 
-        docenteDAO.modificarRegistroDocente(docente);
+    protected void cambiarDatosModificadosDeCarreraProfesional(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        CarreraProfesional carreraProfesional = new CarreraProfesional();
+        carreraProfesional.setCodigo(request.getParameter("codigo"));
+        carreraProfesional.setNombre(request.getParameter("nombre"));
+        carreraProfesional.setModalidad(request.getParameter("modalidad"));
 
+        carreraProfesionalDAO.modificarCarreraProfesional(carreraProfesional);
+        String pag = "/vistaCarreraProfesional/mantenimientoCarreraProfesional.jsp";
+        request.getRequestDispatcher(pag).forward(request, response);
+    }
+
+    protected void eliminarRegistroDocente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String codigo = request.getParameter("codigo");
+        docenteDAO.eliminarDocente(codigo);
         String pag = "/vistaDocente/mantenimientoDocente.jsp";
         request.getRequestDispatcher(pag).forward(request, response);
     }
 
-   // El "eliminarRegistroDocente" anterior [descomentar en caso de errores con el actual]
-   /*protected void eliminarRegistroDocente(HttpServletRequest request, HttpServletResponse response)
+    protected void modificarRegistroDocente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String codigo = request.getParameter("codigo");
-        docenteDAO.eliminarRegistroDocente(codigo);
-        String pag = PAG_MANTENIMIENTO_DOCENTE;
+        Docente docente = docenteDAO.consulta(codigo);
+        request.setAttribute("dato", docente);
+        String pag = "/vistaDocente/editarDocente.jsp";
         request.getRequestDispatcher(pag).forward(request, response);
-    }*/
-    
-    protected void eliminarRegistroDocente(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            String codigo = request.getParameter("codigo");
-            docenteDAO.eliminarRegistroDocente(codigo);
-            String pag = PAG_MANTENIMIENTO_DOCENTE;
-            request.getRequestDispatcher(pag).forward(request, response);
-        } catch (Exception e) {
-            request.setAttribute("error", "Error al eliminar el registro del docente: " + e.getMessage());
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
-        }
     }
-    
-    private void eliminarRegistro(HttpServletRequest request, HttpServletResponse response, Object dao, String page)
+
+    protected void cambiarDatosModificadosDeDocente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String codigo = request.getParameter("codigo");
+        Docente docente = new Docente();
+        docente.setCodigo(request.getParameter("codigo"));
+        docente.setNombres(request.getParameter("nombres"));
+        docente.setApellidos(request.getParameter("apellidos"));
+        docente.setDni(request.getParameter("dni"));
+        docente.setEspecialidad(request.getParameter("especialidad"));
+        docente.setCorreo(request.getParameter("correo"));
 
-            if (dao instanceof AlumnoDAO) {
-                ((AlumnoDAO) dao).eliminarRegistroAlumno(codigo);
-            } else if (dao instanceof DocenteDAO) {
-                ((DocenteDAO) dao).eliminarRegistroDocente(codigo);
-            }
-
-            request.getRequestDispatcher(page).forward(request, response);
-        } catch (Exception e) {
-            request.setAttribute("error", "Error al eliminar el registro: " + e.getMessage());
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
-        }
+        docenteDAO.modificarDocente(docente);
+        String pag = "/vistaDocente/mantenimientoDocente.jsp";
+        request.getRequestDispatcher(pag).forward(request, response);
     }
-   
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

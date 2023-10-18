@@ -92,18 +92,7 @@
 
                     <div class="form-group">
                         <label>Semestre:</label>
-                        <select name="semestre">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                        </select>
+                        <input type="text" name="semestre">
                     </div>
 
                     <div class="form-group">
@@ -136,11 +125,6 @@
                         <input type="submit" value="Guardar">
                     </div>
                 </form>
-            </section>
-
-            <section class="section1">
-                <label>Filtrar por código de alumno:</label>
-                <input id="alumno">
             </section>
 
             <section>

@@ -1,8 +1,17 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package modelo;
 
 import java.time.LocalDate;
 
-public class Matricula {
+/**
+ *
+ * @author abdel
+ */
+public class Matricula extends Alumno {
+
     private int id;
     private String codigoAlumno;
     private int semestre; //Semestre es igual a ciclo
@@ -18,9 +27,9 @@ public class Matricula {
         this.turno = turno;
         this.fechaMatricula = fechaMatricula;
     }
-    
-    public Matricula(){
-        
+
+    public Matricula() {
+
     }
 
     public int getId() {
@@ -70,7 +79,5 @@ public class Matricula {
     public void setFechaMatricula(LocalDate fechaMatricula) {
         this.fechaMatricula = fechaMatricula;
     }
-    
-    
-    
+
 }

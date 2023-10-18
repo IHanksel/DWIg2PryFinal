@@ -4,6 +4,8 @@
     Author     : abdel
 --%>
 
+<%@page import="modelo.Docente"%>
+<%@page import="dao.DocenteDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,7 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <link rel="stylesheet" href="/SistemaUniversidad/css/adminlte.min.css" />
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -77,10 +80,36 @@
                     </div>
                 </div>
             </section>
-            
-            <section>
-                <h1>Aqui empezar</h1>
-            </section>
+
+            <%
+                DocenteDAO obj = new DocenteDAO();
+            %>    
+            <center>
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="text-white bg-black">
+                            <th>Código<th>Nombres<th>Apellidos<th>DNI<th>Especialidad<th>Correo      
+                    </thead>   
+                    <%
+                        for (Docente x : obj.ListDocen()) {
+                    %>
+                    <tr><td><%=x.getCodigo()%>
+                        <td><%=x.getNombres()%>
+                        <td><%=x.getApellidos()%>
+                        <td><%=x.getDni()%>
+                        <td><%=x.getEspecialidad()%>
+                        <td><%=x.getCorreo()%>
+
+                            <%
+                                }
+                            %> 
+                </table>
+            </center>
+
+
+
+
+
         </main>
 
         <footer>

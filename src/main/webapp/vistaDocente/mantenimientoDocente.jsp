@@ -18,7 +18,8 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
-        <link href="/SistemaUniversidad/css/mantenimiento.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/mantenimiento.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/adminlte.min.css" rel="stylesheet" type="text/css"/>
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -112,10 +113,10 @@
                             <td><%=docente.getEspecialidad()%></td>
                             <td><%=docente.getCorreo()%></td>
                             <td>
-                                <a href="/SistemaUniversidad/ControlMantenimiento?opcion=5&codigo=<%=docente.getCodigo()%>">Eliminar</a>
+                                <a href="/SistemaUniversidad/ControlMantenimiento?opcion=8&codigo=<%=docente.getCodigo()%>">Eliminar</a>
                             </td>
                             <td>
-                                <a href="/SistemaUniversidad/ControlMantenimiento?opcion=6&codigo=<%=docente.getCodigo()%>">Modificar</a>
+                                <a href="/SistemaUniversidad/ControlMantenimiento?opcion=7&codigo=<%=docente.getCodigo()%>">Modificar</a>
                             </td>
                         </tr>
                         <%

@@ -1,6 +1,15 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package modelo;
 
+/**
+ *
+ * @author abdel
+ */
 public class Alumno {
+
     private String codigo; //Estándar de código: AL001
     private String nombres;
     private String apellidos;
@@ -21,9 +30,9 @@ public class Alumno {
     }
 
     public Alumno() {
-        
+
     }
-    
+
     public String getCodigo() {
         return codigo;
     }
@@ -70,7 +79,7 @@ public class Alumno {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }    
+    }
 
     public String getCarrera() {
         return carrera;
@@ -79,6 +88,5 @@ public class Alumno {
     public void setCarrera(String carrera) {
         this.carrera = carrera;
     }
-    
-    
+
 }

@@ -22,7 +22,6 @@
 
     </head>
     <body id="inicio">
-
         <header class="header-transparente">
             <div class="caja">
                 <nav>
@@ -84,12 +83,10 @@
                 </div>
             </section>
 
-            <iframe name="zona" width="100%" height="200"></iframe>   
             <section>
                 <%
                     AlumnoDAO alumnoDAO = new AlumnoDAO();
                 %> 
-
                 <table id="tablaresalumno" class="table table-hover">
                     <thead>
                         <tr class="text-white bg-black">
@@ -109,6 +106,7 @@
                             <%
                                 }
                             %>
+
                 </table>
             </section>
         </main>

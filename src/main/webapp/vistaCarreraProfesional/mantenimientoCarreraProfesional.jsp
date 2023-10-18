@@ -4,6 +4,8 @@
     Author     : abdel
 --%>
 
+<%@page import="modelo.CarreraProfesional"%>
+<%@page import="dao.CarreraProfesionalDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,9 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <link href="../css/mantenimiento.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/adminlte.min.css" rel="stylesheet" type="text/css"/>
+
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -77,9 +82,30 @@
                     </div>
                 </div>
             </section>
-            
+
             <section>
-                <h1>Aqui empezar</h1>
+                <%
+                    CarreraProfesionalDAO carreraProfesionalDAO = new CarreraProfesionalDAO();
+                %> 
+                <table id="tablaresalumno" class="table table-hover">
+                    <thead>
+                        <tr class="text-white bg-black">
+                            <th>Código<th>Nombre<th>Modalidad<th>Modificar<th>Eliminar
+                    </thead>
+
+                    <%
+                        for (CarreraProfesional carreraProfesional : carreraProfesionalDAO.listado()) {
+                    %>
+                    <tr><td><%=carreraProfesional.getCodigo()%><td><%=carreraProfesional.getNombre()%>
+                        <td><%=carreraProfesional.getModalidad()%>
+                        <td><a href="/SistemaUniversidad/ControlMantenimiento?opcion=4&codigo=<%=carreraProfesional.getCodigo()%>">Modificar</a>
+                        <td><a href="/SistemaUniversidad/ControlMantenimiento?opcion=5&codigo=<%=carreraProfesional.getCodigo()%>">Eliminar</a>
+
+                            <%
+                                }
+                            %>
+
+                </table>
             </section>
         </main>
 
