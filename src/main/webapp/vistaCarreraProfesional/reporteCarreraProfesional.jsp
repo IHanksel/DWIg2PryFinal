@@ -6,6 +6,7 @@
 
 <%@page import="modelo.CarreraProfesional"%>
 <%@page import="dao.CarreraProfesionalDAO"%>
+<%@ page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -83,87 +84,61 @@
                 </div>
             </section>
 
-            <%--
+
             <%
                 CarreraProfesionalDAO carreraProfesionalDAO = new CarreraProfesionalDAO();
                 String carrera = "";
                 String modalidad = "";
+
                 if (request.getParameter("carrera") != null) {
                     carrera = request.getParameter("carrera");
                 }
                 if (request.getParameter("modalidad") != null) {
                     modalidad = request.getParameter("modalidad");
                 }
+
+                List<CarreraProfesional> carrerasPorModalidad = carreraProfesionalDAO.SeleccionarCarreraPorModalidad(modalidad);
             %>
 
             <form>
                 <div class="form-group">
-                    <label class="control-label">Consultar por carrera:</label>    
-                    <select class="form-control" name="carrera" onchange="submit()">
-                        <option>--Elegir--</option>
-                        <%
-                            for (CarreraProfesional carreraProfesional : carreraProfesionalDAO.SeleccionarCarrera()) {
-                                if (carreraProfesional.getCodigo().equals(carrera)) {
-                                    out.print("<option value=" + carreraProfesional.getCodigo() + " selected>" + carreraProfesional.getNombre());
-                                } else {
-                                    out.print("<option value=" + carreraProfesional.getCodigo() + ">" + carreraProfesional.getNombre());
-                                }
-                            }
-                        %>    
-                    </select>
+
                     <label class="control-label">Modalidad:</label>    
                     <select class="form-control" name="modalidad" onchange="submit()">
                         <option>--Elegir--</option>
                         <%
-                            for (CarreraProfesional carreraProfesional : carreraProfesionalDAO.SeleccionarModalidad(carrera)) {
-                                if (carreraProfesional.getCodigo().equals(modalidad)) {
-                                    out.print("<option value=" + carreraProfesional.getCodigo() + " selected>" + carreraProfesional.getModalidad());
+                            for (CarreraProfesional carreraProfesional : carreraProfesionalDAO.SeleccionarModalidad()) {
+                                if (carreraProfesional.getModalidad().equals(modalidad)) {
+                                    out.print("<option value=" + carreraProfesional.getModalidad() + " selected>" + carreraProfesional.getModalidad());
                                 } else {
                                     out.print("<option value=" + carreraProfesional.getModalidad() + ">" + carreraProfesional.getModalidad());
                                 }
                             }
                         %>    
-                    </select>    
+                    </select> 
+
+
+
                 </div>    
             </form>
             <table class="table table-hover">
                 <thead>
                     <tr class="text-white bg-black">
-                        <th>Código<th>Nombre<th>Modalidad      
+                        <th>Código<th>Nombre     
+                    </tr>
                 </thead>   
                 <%
-                    for (CarreraProfesional carreraProfesional : carreraProfesionalDAO.listado()) {
+                    for (CarreraProfesional carreraProfesional : carrerasPorModalidad) {
                 %>
-                <tr><td><%=carreraProfesional.getCodigo()%>
-                    <td><%=carreraProfesional.getNombre()%>
-                    <td><%=carreraProfesional.getModalidad()%>
-                        <%
-                            }
-                        %> 
+                <tr>
+                    <td><%=carreraProfesional.getCodigo()%></td>
+                    <td><%=carreraProfesional.getNombre()%></td>
+
+                </tr>
+                <%
+                    }
+                %> 
             </table>
-            a--%>
-
-
-            <%
-                CarreraProfesionalDAO carreraProfesionalDAO = new CarreraProfesionalDAO();
-            %>    
-            <center>
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="text-white bg-black">
-                            <th>Código<th>Nombre<th>Modalidad      
-                    </thead>   
-                    <%
-                        for (CarreraProfesional carreraProfesional : carreraProfesionalDAO.listado()) {
-                    %>
-                    <tr><td><%=carreraProfesional.getCodigo()%>
-                        <td><%=carreraProfesional.getNombre()%>
-                        <td><%=carreraProfesional.getModalidad()%>
-                            <%
-                                }
-                            %> 
-                </table>
-            </center>
 
         </main>
 

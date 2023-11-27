@@ -14,6 +14,8 @@ import java.util.List;
 import modelo.CarreraProfesional;
 import modelo.Matricula;
 import util.MySQLConexion;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  *
@@ -166,13 +168,16 @@ public class CarreraProfesionalDAO {
         }
     }
 
-    public List<CarreraProfesional> SeleccionarCarrera() {
-        List<CarreraProfesional> lis = new ArrayList();
+    public List<CarreraProfesional> SeleccionarCarreraPorModalidad(String modalidad) {
+        List<CarreraProfesional> lis = new ArrayList<>();
         Connection cn = MySQLConexion.getConexion();
         try {
-            String sql = "SELECT Codigo, Nombre_de_carrera FROM carrera_profesional";
+            
+            String sql = "SELECT Codigo, Nombre_de_carrera FROM carrera_profesional WHERE Modalidad = ?";
             PreparedStatement st = cn.prepareStatement(sql);
+            st.setString(1, modalidad);
             ResultSet rs = st.executeQuery();
+
             while (rs.next()) {
                 CarreraProfesional carreraProfesional = new CarreraProfesional();
                 carreraProfesional.setCodigo(rs.getString(1));
@@ -185,19 +190,26 @@ public class CarreraProfesionalDAO {
         return lis;
     }
 
-    public List<CarreraProfesional> SeleccionarModalidad(String codigo) {
+    public List<CarreraProfesional> SeleccionarModalidad() {
         List<CarreraProfesional> lis = new ArrayList();
+        Set<String> modalidadesUnicas = new HashSet<>();
+
         Connection cn = MySQLConexion.getConexion();
         try {
-            String sql = "SELECT Codigo, Modalidad FROM carrera_profesional WHERE Codigo = ?";
+            String sql = "SELECT DISTINCT Modalidad, Codigo FROM carrera_profesional";
             PreparedStatement st = cn.prepareStatement(sql);
-            st.setString(1, codigo);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                CarreraProfesional carreraProfesional = new CarreraProfesional();
-                carreraProfesional.setCodigo(rs.getString(1));
-                carreraProfesional.setModalidad(rs.getString(2));
-                lis.add(carreraProfesional);
+                String modalidad = rs.getString(1);
+                String codigo = rs.getString(2);
+
+                
+                if (modalidadesUnicas.add(modalidad)) {
+                    CarreraProfesional carreraProfesional = new CarreraProfesional();
+                    carreraProfesional.setModalidad(modalidad);
+                    carreraProfesional.setCodigo(codigo);
+                    lis.add(carreraProfesional);
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
