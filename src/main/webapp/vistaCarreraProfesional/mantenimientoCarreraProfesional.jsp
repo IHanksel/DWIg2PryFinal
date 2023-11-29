@@ -45,6 +45,8 @@
                                     <a href="/SistemaUniversidad/vistaDocente/mantenimientoDocente.jsp">Docente</a>
                                     <a href="/SistemaUniversidad/vistaAsignatura/mantenimientoAsignatura.jsp">Asignatura</a>
                                     <a href="#">Carrera profesional</a>
+                                    <a></a>
+                                    <a href="http://localhost:8085/listar">Convenios</a>
                                 </div>
                             </div>
                         </li>
