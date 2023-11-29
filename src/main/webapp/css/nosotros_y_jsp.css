@@ -23,11 +23,11 @@
     height: auto;
     padding: 80px;
     display: block;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
 .info {
-    text-align: center; 
+    text-align: center;
     padding: 20px;
     margin: 0 auto;
     margin-bottom: 70px;
@@ -35,6 +35,22 @@
     font-size: 20px
 }
 
+section {
+    text-align: center;
+}
 
+.listado {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.listado:hover {
+    background-color: #2980b9;
+}
 
 
