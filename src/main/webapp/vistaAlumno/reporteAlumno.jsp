@@ -4,6 +4,7 @@
     Author     : abdel
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="modelo.Alumno"%>
 <%@page import="dao.AlumnoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -83,29 +84,38 @@
                     </div>
                 </div>
             </section>
-
-            <%
-                AlumnoDAO obj = new AlumnoDAO();
-            %>    
+            
             <center>
+                <form action="" method="post">
+                    <label for="apellido">Ingrese Nombres:</label>
+                    <input type="text" name="apellido" id="apellido">
+                    <input type="submit" value="Filtrar">
+                </form>
+
                 <table class="table table-hover">
                     <thead>
                         <tr class="text-white bg-black">
-                            <th>Código<th>Nombres<th>Apellidos<th>DNI<th>Dirección<th>Teléfono<th>Carrera        
-                    </thead>   
+                            <th>Código</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>Dirección</th><th>Teléfono</th><th>Carrera</th>
+                        </tr>
+                    </thead>
                     <%
-                        for (Alumno x : obj.listado()) {
+                        String apellidoFiltro = request.getParameter("apellido");
+                        AlumnoDAO obj = new AlumnoDAO();
+                        List<Alumno> listaAlumnos = (apellidoFiltro != null) ? obj.filtrarPorNombreAlumno(apellidoFiltro) : obj.listado();
+                        for (Alumno x : listaAlumnos) {
                     %>
-                    <tr><td><%=x.getCodigo()%>
-                        <td><%=x.getNombres()%>
-                        <td><%=x.getApellidos()%>
-                        <td><%=x.getDni()%>
-                        <td><%=x.getDireccion()%>
-                        <td><%=x.getTelefono()%>
-                        <td><%=x.getCarrera()%>
-                            <%
-                                }
-                            %> 
+                    <tr>
+                        <td><%=x.getCodigo()%></td>
+                        <td><%=x.getNombres()%></td>
+                        <td><%=x.getApellidos()%></td>
+                        <td><%=x.getDni()%></td>
+                        <td><%=x.getDireccion()%></td>
+                        <td><%=x.getTelefono()%></td>
+                        <td><%=x.getCarrera()%></td>
+                    </tr>
+                    <%
+                        }
+                    %>
                 </table>
             </center>
 

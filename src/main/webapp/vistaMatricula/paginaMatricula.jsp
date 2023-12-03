@@ -4,7 +4,10 @@
     Author     : abdel
 --%>
 
+<%@page import="dao.MatriculaDAO"%>
 <%@page import="modelo.Asignatura"%>
+<%@page import="modelo.Matricula"%>
+<%@page import="controlador.ControlMatricula"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.AsignaturaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -85,10 +88,17 @@
                 </div>
             </section>
 
+            <%
+                // Crea una instancia de MatriculaDAO
+                MatriculaDAO matriculaDAO = new MatriculaDAO();
+                // Obtiene la lista de matrículas utilizando el método ListMatri de tu MatriculaDAO
+                List<Matricula> listaMatriculas = matriculaDAO.ListMatri();
+            %>
+
             <section class="ingresar-datos">
                 <form action="/SistemaUniversidad/ControlMatricula" method="post">
                     <div class="form-group">
-                        <label>Código de alumno:</label>
+                        <label>Código de alumno: (Ya debe existir)</label>
                         <input type="text" name="codigo">
                     </div>
 
@@ -118,7 +128,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Fecha de matrícula:</label>
+                        <label>Fecha de matrícula: dd/MM/YYYY</label>
                         <input type="text" name="fecha_matricula">
                     </div>
 
@@ -133,9 +143,40 @@
                 <table class="table table-hover">
                     <thead>
                         <tr class="text-white bg-black">
-                            <th>Código<th>Nombres<th>Apellidos<th>ID Matrícula
-                            <th>Semestre<th>Carrera<th>Asignatura<th>Turno<th>Fecha<th>Modificar<th>Eliminar
+                            <th>Código</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>ID Matrícula</th>
+                            <th>Semestre</th>
+                            <th>Carrera</th>
+                            <th>Asignatura</th>
+                            <th>Turno</th>
+                            <th>Fecha</th>
+                            <th>Modificar</th>
+                            <th>Eliminar</th>
+                        </tr>
                     </thead>
+                    <tbody>
+                        <% for (Matricula matricula : listaMatriculas) {%>
+                        <tr>
+                            <td><%= matricula.getCodigo()%></td>
+                            <td><%= matricula.getNombres()%></td>
+                            <td><%= matricula.getApellidos()%></td>
+                            <td><%= matricula.getId()%></td>
+                            <td><%= matricula.getSemestre()%></td>
+                            <td><%= matricula.getCarrera()%></td>
+                            <td><%= matricula.getNombreAsignatura()%></td>
+                            <td><%= matricula.getTurno()%></td>
+                            <td><%= matricula.getFechaMatricula()%></td>
+                            <td>
+                                <a href="/SistemaUniversidad/ControlMatricula?opcion=2&id=<%= matricula.getId()%>">Modificar</a>
+                            </td>
+                            <td>
+                                <a href="/SistemaUniversidad/ControlMatricula?opcion=3&id=<%= matricula.getId()%>">Eliminar</a>
+                            </td>
+                        </tr>
+                        <% }%>
+                    </tbody>
                 </table>
             </section>
         </main>
