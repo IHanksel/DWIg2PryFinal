@@ -1,17 +1,12 @@
-<%-- 
-    Document   : reporteAlumno
-    Created on : 10 oct. 2023, 18:58:47
-    Author     : abdel
---%>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-<%@page import="java.util.List"%>
-<%@page import="modelo.Alumno"%>
-<%@page import="dao.AlumnoDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <h:head>
+        <meta charset="UTF-8" />
         <title>Reportes de Alumnos</title>
         <link rel="stylesheet" href="/SistemaUniversidad/css/reset.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/header.css" />
@@ -20,8 +15,10 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/adminlte.min.css" />
         <link href="../css/reportes.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body id="inicio">
+        <link href="../bootstrap/adminlte.min.css" rel="stylesheet" type="text/css"/>
+    </h:head>
+
+    <h:body>
         <header class="header-transparente">
             <div class="caja">
                 <nav>
@@ -84,45 +81,48 @@
                     </div>
                 </div>
             </section>
-            
-            <center>
-                <form action="" method="post">
-                    <label for="apellido">Ingrese Nombres:</label>
-                    <input type="text" name="apellido" id="apellido">
-                    <input type="submit" value="Filtrar">
-                </form>
 
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="text-white bg-black">
-                            <th>Código</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>Dirección</th><th>Teléfono</th><th>Carrera</th>
-                        </tr>
-                    </thead>
-                    <%
-                        String apellidoFiltro = request.getParameter("apellido");
-                        AlumnoDAO obj = new AlumnoDAO();
-                        List<Alumno> listaAlumnos = (apellidoFiltro != null) ? obj.filtrarPorNombreAlumno(apellidoFiltro) : obj.listado();
-                        for (Alumno x : listaAlumnos) {
-                    %>
-                    <tr>
-                        <td><%=x.getCodigo()%></td>
-                        <td><%=x.getNombres()%></td>
-                        <td><%=x.getApellidos()%></td>
-                        <td><%=x.getDni()%></td>
-                        <td><%=x.getDireccion()%></td>
-                        <td><%=x.getTelefono()%></td>
-                        <td><%=x.getCarrera()%></td>
-                    </tr>
-                    <%
-                        }
-                    %>
-                </table>
-            </center>
+            <h:form>
+                <h:outputLabel for="consulta">Ingrese Nombres:</h:outputLabel>
+                <h:inputText id="consulta" value="#{reporteBean.consulta}" />
+                <h:commandButton value="Filtrar" action="#{reporteBean.filtrarAlumnosPorNombre}" />
 
+                <h:dataTable value="#{reporteBean.listaAlumnos}" var="alumno" class="table table-hover bg-black">
+                    <h:column class="text-white bg-white">
+                        <f:facet name="header">Código</f:facet>
+                            #{alumno.codigo}
+                    </h:column>
+                    <h:column class="text-white bg-white">
+                        <f:facet name="header">Nombres</f:facet>
+                            #{alumno.nombres}
+                    </h:column>
+                    <h:column class="text-white bg-white">
+                        <f:facet name="header">Apellidos</f:facet>
+                            #{alumno.apellidos}
+                    </h:column>
+                    <h:column class="text-white bg-white">
+                        <f:facet name="header">DNI</f:facet>
+                            #{alumno.dni}
+                    </h:column>
+                    <h:column class="text-white bg-white">
+                        <f:facet name="header">Dirección</f:facet>
+                            #{alumno.direccion}
+                    </h:column>
+                    <h:column class="text-white bg-white">
+                        <f:facet name="header">Telefono</f:facet>
+                            #{alumno.telefono}
+                    </h:column>
+                    <h:column class="text-white bg-white">
+                        <f:facet name="header">Carrera</f:facet>
+                            #{alumno.carrera}
+                    </h:column>
+                </h:dataTable>
+            </h:form>
         </main>
 
         <footer>
             <p class="fondo">Todos los derechos reservados</p>
         </footer>
-    </body>
+    </h:body>
+
 </html>

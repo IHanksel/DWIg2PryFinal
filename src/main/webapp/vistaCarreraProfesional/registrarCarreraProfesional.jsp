@@ -51,7 +51,7 @@
                             <div class="dropdown">
                                 <a class="dropbtn">Reportes</a>
                                 <div class="dropdown-content">
-                                    <a href="/SistemaUniversidad/vistaAlumno/reporteAlumno.jsp">Alumno</a>
+                                    <a href="/SistemaUniversidad/vistaAlumno/reporteAlumno.xhtml">Alumno</a>
                                     <a href="/SistemaUniversidad/vistaDocente/reporteDocente.jsp">Docente</a>
                                     <a href="/SistemaUniversidad/vistaAsignatura/reporteAsignatura.jsp">Asignatura</a>
                                     <a href="/SistemaUniversidad/vistaCarreraProfesional/reporteCarreraProfesional.jsp">Carrera profesional</a>
