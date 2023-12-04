@@ -1,27 +1,23 @@
-<%-- 
-    Document   : mantenimientoAlumno
-    Created on : 10 oct. 2023, 18:58:37
-    Author     : abdel
---%>
-
-<%@page import="modelo.Alumno"%>
-<%@page import="dao.AlumnoDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mantenimiento de Alumnos</title>
-        <link href="/SistemaUniversidad/bootstrap/adminlte.min.css" rel="stylesheet" type="text/css"/>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Reportes de Alumnos</title>
         <link rel="stylesheet" href="/SistemaUniversidad/css/reset.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/header.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
-        <link href="/SistemaUniversidad/css/mantenimiento.css" rel="stylesheet" type="text/css"/>
-
-    </head>
-    <body id="inicio">
+        <link rel="stylesheet" href="/SistemaUniversidad/css/adminlte.min.css" />
+        <link href="../css/reportes.css" rel="stylesheet" type="text/css"/>
+        <link href="../bootstrap/adminlte.min.css" rel="stylesheet" type="text/css"/>
+    </h:head>
+    <h:body>
         <header class="header-transparente">
             <div class="caja">
                 <nav>
@@ -34,7 +30,7 @@
                                     <a href="/SistemaUniversidad/vistaDocente/registrarDocente.jsp">Docente</a>
                                     <a href="/SistemaUniversidad/vistaAsignatura/registrarAsignatura.jsp">Asignatura</a>
                                     <a href="/SistemaUniversidad/vistaCarreraProfesional/registrarCarreraProfesional.jsp">Carrera profesional</a>
-                                    <a href="/SistemaUniversidad/vistaTaller/registrarTaller.xhtml">Taller</a>
+                                    <a href="#">Taller</a>
                                 </div>
                             </div>
                         </li>
@@ -42,7 +38,7 @@
                             <div class="dropdown">
                                 <a class="dropbtn">Mantenimiento</a>
                                 <div class="dropdown-content">
-                                    <a href="#">Alumno</a>
+                                    <a href="/SistemaUniversidad/vistaAlumno/mantenimientoAlumno.jsp">Alumno</a>
                                     <a href="/SistemaUniversidad/vistaDocente/mantenimientoDocente.jsp">Docente</a>
                                     <a href="/SistemaUniversidad/vistaAsignatura/mantenimientoAsignatura.jsp">Asignatura</a>
                                     <a href="/SistemaUniversidad/vistaCarreraProfesional/mantenimientoCarreraProfesional.jsp">Carrera profesional</a>
@@ -55,7 +51,7 @@
                             <div class="dropdown">
                                 <a class="dropbtn">Reportes</a>
                                 <div class="dropdown-content">
-                                    <a href="/SistemaUniversidad/vistaAlumno/reporteAlumno.xhtml">Alumno</a>
+                                    <a href="#">Alumno</a>
                                     <a href="/SistemaUniversidad/vistaDocente/reporteDocente.jsp">Docente</a>
                                     <a href="/SistemaUniversidad/vistaAsignatura/reporteAsignatura.jsp">Asignatura</a>
                                     <a href="/SistemaUniversidad/vistaCarreraProfesional/reporteCarreraProfesional.jsp">Carrera profesional</a>
@@ -76,46 +72,68 @@
                 </nav>
             </div>
         </header>
+        <center>
 
-        <main>
             <section class="titulo">
                 <div class="banner-wrapper">
                     <div class="texto">
-                        <h1>Mantenimiento de Alumnos</h1>
+                        <h1>Registrar Taller</h1>
                     </div>
                 </div>
             </section>
+            <h:form id="fr3">
+                <p:commandButton oncomplete="PF('dgadiciona').show()"
+                                 value="Registrar taller"/>      
+            </h:form>    
+            <p:dialog  modal="true" widgetVar="dgadiciona" width="500" height="400" >
+                <h:form id="fr4">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Nombre del taller"/>
+                        <p:inputText value="#{controlTaller.taller.nombre}"/>
+                        <p:outputLabel value="Duración en meses"/>
+                        <p:inputText value="#{controlTaller.taller.duracion}"/>
+                        <p:outputLabel value="Horario"/>
+                        <p:inputText value="#{controlTaller.taller.horario}"/>
+                        <p:outputLabel value="Precio del taller"/>
+                        <p:inputText value="#{controlTaller.taller.monto}"/>
 
-            <section>
-                <%
-                    AlumnoDAO alumnoDAO = new AlumnoDAO();
-                %> 
-                <table id="tablaresalumno" class="table table-hover">
-                    <thead>
-                        <tr class="text-white bg-black">
-                            <th>Código<th>Nombres<th>Apellidos<th>DNI<th>Dirección
-                            <th>Teléfono<th>Carrera<th>Modificar<th>Eliminar
-                    </thead>
+                    </p:panelGrid>   
+                    <p:commandButton value="Grabar" action="#{controlTaller.grabar()}"
+                                     update=":fr1:tabalu,:fr4" oncomplete="PF('dgadiciona').hide()">
+                    </p:commandButton>  
+                </h:form>  
 
-                    <%
-                        for (Alumno alumno : alumnoDAO.listado()) {
-                    %>
-                    <tr><td><%=alumno.getCodigo()%><td><%=alumno.getNombres()%>
-                        <td><%=alumno.getApellidos()%><td><%=alumno.getDni()%><td><%=alumno.getDireccion()%>
-                        <td><%=alumno.getTelefono()%><td><%=alumno.getCarrera()%>
-                        <td><a href="/SistemaUniversidad/ControlMantenimiento?opcion=1&codigo=<%=alumno.getCodigo()%>">Modificar</a>
-                        <td><a href="/SistemaUniversidad/ControlMantenimiento?opcion=2&codigo=<%=alumno.getCodigo()%>">Eliminar</a>
+            </p:dialog>
 
-                            <%
-                                }
-                            %>
 
-                </table>
-            </section>
-        </main>
+
+            <h:form id="fr1">
+                <p:dataTable id="tabalu" value="#{controlTaller.listaller}" var="taller" paginator="true" rows="5">
+                    <p:column headerText="Codigo">
+                        <p:outputLabel value="#{taller.id}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{taller.nombre}" />
+                    </p:column>
+                    <p:column headerText="Duración">
+                        <p:outputLabel value="#{taller.duracion}" />
+                    </p:column>
+                    <p:column headerText="Horario">
+                        <p:outputLabel value="#{taller.horario}" />
+                    </p:column>
+                    <p:column headerText="Monto">
+                        <p:outputLabel value="#{taller.monto}" />
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+
+        </center>
 
         <footer>
             <p class="fondo">Todos los derechos reservados</p>
         </footer>
-    </body>
+    </h:body>
+
 </html>
+
