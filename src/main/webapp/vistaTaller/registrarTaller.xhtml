@@ -108,25 +108,24 @@
 
 
 
-            <h:form id="fr1">
-                <p:dataTable id="tabalu" value="#{controlTaller.listaller}" var="taller" paginator="true" rows="5">
-                    <p:column headerText="Codigo">
+            <h:form id="fr1" class="table-hover bg-black" >
+                <p:dataTable id="tabalu" value="#{controlTaller.listaller}" var="taller" paginator="true" rows="5" class="table table-hover bg-black">
+                    <p:column headerText="Codigo" class="text-white bg-white">
                         <p:outputLabel value="#{taller.id}" />
                     </p:column>
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Nombre" class="text-white bg-white">
                         <p:outputLabel value="#{taller.nombre}" />
                     </p:column>
-                    <p:column headerText="Duración">
+                    <p:column headerText="Duración" class="text-white bg-white">
                         <p:outputLabel value="#{taller.duracion}" />
                     </p:column>
-                    <p:column headerText="Horario">
+                    <p:column headerText="Horario" class="text-white bg-white">
                         <p:outputLabel value="#{taller.horario}" />
                     </p:column>
-                    <p:column headerText="Monto">
+                    <p:column headerText="Monto" class="text-white bg-white">
                         <p:outputLabel value="#{taller.monto}" />
                     </p:column>
                 </p:dataTable>
-
             </h:form>
 
         </center>

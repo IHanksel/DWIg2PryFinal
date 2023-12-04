@@ -104,10 +104,10 @@
                             <td><%=asignatura.getCodigo()%></td><td><%=asignatura.getCarrera()%></td>
                             <td><%=asignatura.getNombre()%></td><td><%=asignatura.getCreditos()%></td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/ControlMantenimiento?opcion=10&codigo=${asignatura.codigo}">Modificar</a>
+                                <a href="/SistemaUniversidad/ControlMantenimiento?opcion=10&codigo=<%=asignatura.getCodigo()%>">Modificar</a>
                             </td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/ControlMantenimiento?opcion=11&codigo=${asignatura.codigo}">Eliminar</a>
+                                <a href="/SistemaUniversidad/ControlMantenimiento?opcion=11&codigo=<%=asignatura.getCodigo()%>">Eliminar</a>
                             </td>
                         </tr>
                         <%

@@ -70,7 +70,7 @@ public class AsignaturaDAO {
         Connection cn = MySQLConexion.getConexion();
         try {
             // Llamada al procedimiento almacenado
-            String storedProcedureCall = "{CALL sp_eliminar_asignatura_por_ID(?)}";
+            String storedProcedureCall = "{CALL sp_eliminar_asignatura(?)}";
             CallableStatement cs = cn.prepareCall(storedProcedureCall);
             cs.setString(1, codigoAsignatura);
             cs.execute();
