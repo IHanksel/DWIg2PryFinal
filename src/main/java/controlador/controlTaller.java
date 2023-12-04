@@ -34,10 +34,6 @@ public class controlTaller implements Serializable {
 
     }
 
-    public void filtrar() {
-        listaller = new TallerDAO().filtrar(texto);
-    }
-
     public controlTaller() {
         texto = "";
         taller = new Taller();

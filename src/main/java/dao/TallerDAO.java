@@ -14,24 +14,7 @@ import util.MySQLConexion;
  * @author Samanta
  */
 public class TallerDAO {
-    //filtrar por nombre de taller
 
-    public List<Taller> filtrar(String nombre) {
-        List<Taller> lista = new ArrayList();
-        String sql = "select id, nombre, duracion_mes, horario, costo from taller where nombre like ?";
-        try {
-            PreparedStatement st = MySQLConexion.getConexion().prepareStatement(sql);
-            st.setString(1, nombre + "%");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Taller a = new Taller(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5));
-                lista.add(a);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return lista;
-    }
 
     public List<Taller> LisTaller() {
         List<Taller> lista = new ArrayList();
@@ -47,23 +30,6 @@ public class TallerDAO {
             ex.printStackTrace();
         }
         return lista;
-    }
-
-    //busqueda de un alumno por codigo
-    public Taller BusTaller(String cod) {
-        Taller a = null;
-        String sql = "select id, nombre, duracion_mes, horario, costo from taller where id like ?";
-        try {
-            PreparedStatement st = MySQLConexion.getConexion().prepareStatement(sql);
-            st.setString(1, cod);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                a = new Taller(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return a;
     }
 
     public void graba(Taller a) {
