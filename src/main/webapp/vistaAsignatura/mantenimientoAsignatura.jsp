@@ -1,9 +1,11 @@
 <%-- 
     Document   : mantenimientoAsignatura
     Created on : 10 oct. 2023, 18:59:28
-    Author     : abdel
+    Author     : abdel, ian
 --%>
 
+<%@page import="modelo.Asignatura"%>
+<%@page import="dao.AsignaturaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,8 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <link href="../css/adminlte.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/SistemaUniversidad/css/mantenimiento.css" rel="stylesheet" type="text/css"/>
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -30,7 +34,6 @@
                                     <a href="/SistemaUniversidad/vistaAsignatura/registrarAsignatura.jsp">Asignatura</a>
                                     <a href="/SistemaUniversidad/vistaCarreraProfesional/registrarCarreraProfesional.jsp">Carrera profesional</a>
                                     <a href="/SistemaUniversidad/vistaTaller/registrarTaller.xhtml">Taller</a>
-                                    <a href="/SistemaUniversidad/vistaCertificacion/registrarCertificacion.xhtml">Certificaciones</a>
                                 </div>
                             </div>
                         </li>
@@ -81,10 +84,39 @@
                     </div>
                 </div>
             </section>
-            
-            <section>
-                <h1>Aqui empezar</h1>
+
+            <section class="mantenimiento">
+                <%
+                    AsignaturaDAO asignaturaDAO = new AsignaturaDAO();
+                %>
+                <table id="asignatura" class="table table-hover">
+                    <thead>
+                        <tr class="text-white bg-black">
+                            <th>Código</th><th>Carrera</th><th>Nombre</th><th>Créditos</th>
+                            <th>Modificar</th><th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (Asignatura asignatura : asignaturaDAO.obtenerAsignaturas()) {
+                        %>
+                        <tr>
+                            <td><%=asignatura.getCodigo()%></td><td><%=asignatura.getCarrera()%></td>
+                            <td><%=asignatura.getNombre()%></td><td><%=asignatura.getCreditos()%></td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/ControlMantenimiento?opcion=12&codigo=${asignatura.codigo}">Modificar</a>
+                            </td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/ControlMantenimiento?opcion=11&codigo=${asignatura.codigo}">Eliminar</a>
+                            </td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                    </tbody>
+                </table>
             </section>
+            <input type="hidden" name="opcionAsignatura" value="4">
         </main>
 
         <footer>
