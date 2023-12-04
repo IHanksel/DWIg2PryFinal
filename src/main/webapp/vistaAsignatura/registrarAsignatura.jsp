@@ -33,6 +33,7 @@
                                     <a href="#">Asignatura</a>
                                     <a href="/SistemaUniversidad/vistaCarreraProfesional/registrarCarreraProfesional.jsp">Carrera profesional</a>
                                     <a href="/SistemaUniversidad/vistaTaller/registrarTaller.xhtml">Taller</a>
+                                    <a href="/SistemaUniversidad/vistaCertificacion/registrarCertificacion.xhtml">Certificaciones</a>
                                 </div>
                             </div>
                         </li>

@@ -1,28 +1,23 @@
-<%-- 
-    Document   : reporteCarreraProfesional
-    Created on : 10 oct. 2023, 19:00:46
-    Author     : abdel
---%>
-
-<%@page import="modelo.CarreraProfesional"%>
-<%@page import="dao.CarreraProfesionalDAO"%>
-<%@ page import="java.util.List" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Reportes de Alumnos</title>
         <link rel="stylesheet" href="/SistemaUniversidad/css/reset.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/header.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <link rel="stylesheet" href="/SistemaUniversidad/css/adminlte.min.css" />
         <link href="../css/reportes.css" rel="stylesheet" type="text/css"/>
-        <link href="../css/adminlte.min.css" rel="stylesheet" type="text/css"/>
-
-    </head>
-    <body id="inicio">
+        <link href="../bootstrap/adminlte.min.css" rel="stylesheet" type="text/css"/>
+    </h:head>
+    <h:body>
         <header class="header-transparente">
             <div class="caja">
                 <nav>
@@ -37,6 +32,7 @@
                                     <a href="/SistemaUniversidad/vistaCarreraProfesional/registrarCarreraProfesional.jsp">Carrera profesional</a>
                                     <a href="/SistemaUniversidad/vistaTaller/registrarTaller.xhtml">Taller</a>
                                     <a href="/SistemaUniversidad/vistaCertificacion/registrarCertificacion.xhtml">Certificaciones</a>
+                                    <a href="#">Certificaciones</a>
                                 </div>
                             </div>
                         </li>
@@ -57,10 +53,10 @@
                             <div class="dropdown">
                                 <a class="dropbtn">Reportes</a>
                                 <div class="dropdown-content">
-                                    <a href="/SistemaUniversidad/vistaAlumno/reporteAlumno.xhtml">Alumno</a>
+                                    <a href="#">Alumno</a>
                                     <a href="/SistemaUniversidad/vistaDocente/reporteDocente.jsp">Docente</a>
                                     <a href="/SistemaUniversidad/vistaAsignatura/reporteAsignatura.jsp">Asignatura</a>
-                                    <a href="#">Carrera profesional</a>
+                                    <a href="/SistemaUniversidad/vistaCarreraProfesional/reporteCarreraProfesional.jsp">Carrera profesional</a>
                                     <a href="/SistemaUniversidad/vistaMatricula/reporteMatricula.jsp">Matrícula</a>
                                     <a></a>
                                     <a href="/SistemaUniversidad/vistaAlumno/graficoAlumno.jsp">Gráfico Alumno</a>
@@ -78,76 +74,72 @@
                 </nav>
             </div>
         </header>
-
-        <main>
+        <center>
             <section class="titulo">
                 <div class="banner-wrapper">
                     <div class="texto">
-                        <h1>Reporte de Carreras profesionales</h1>
+                        <h1>Registrar Certificación</h1>
                     </div>
                 </div>
             </section>
 
+            <h:form id="fr3">
+                <p:commandButton oncomplete="PF('dgadiciona').show()" value="Registrar certificación" />
+            </h:form>
 
-            <%
-                CarreraProfesionalDAO carreraProfesionalDAO = new CarreraProfesionalDAO();
-                String carrera = "";
-                String modalidad = "";
+            <p:dialog modal="true" widgetVar="dgadiciona" width="500" height="400">
+                <h:form id="fr4">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Nombre de la certificación" />
+                        <p:inputText value="#{controlCertificacion.certificacion.nombre}" />
+                        <p:outputLabel value="Empresa" />
+                        <p:inputText value="#{controlCertificacion.certificacion.empresa}" />
+                        <p:outputLabel value="Costo" />
+                        <p:inputText value="#{controlCertificacion.certificacion.costo}" />
+                        <p:outputLabel value="Certificado" />
+                        <p:inputText value="#{controlCertificacion.certificacion.certificado}" />
+                        <p:outputLabel value="Duración en meses" />
+                        <p:inputText value="#{controlCertificacion.certificacion.duracion}" />
 
-                if (request.getParameter("carrera") != null) {
-                    carrera = request.getParameter("carrera");
-                }
-                if (request.getParameter("modalidad") != null) {
-                    modalidad = request.getParameter("modalidad");
-                }
+                    </p:panelGrid>
 
-                List<CarreraProfesional> carrerasPorModalidad = carreraProfesionalDAO.SeleccionarCarreraPorModalidad(modalidad);
-            %>
+                    <p:commandButton value="Grabar" action="#{controlCertificacion.grabar()}" update=":fr1:tabcert,:fr4"
+                                     oncomplete="PF('dgadiciona').hide()" />
+                </h:form>
+            </p:dialog>
 
-            <form>
-                <div class="form-group">
+            <h:form id="fr1">
+                <p:dataTable id="tabcert" value="#{controlCertificacion.listaCertificacion}" var="certificacion"
+                             paginator="true" rows="5">
+                    <p:column headerText="Código">
+                        <p:outputLabel value="#{certificacion.id}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{certificacion.nombre}" />
+                    </p:column>
+                    <p:column headerText="Empresa">
+                        <p:outputLabel value="#{certificacion.empresa}" />
+                    </p:column>
+                    <p:column headerText="Costo">
+                        <p:outputLabel value="#{certificacion.costo}" />
+                    </p:column>
+                    <p:column headerText="Certificado">
+                        <p:outputLabel value="#{certificacion.certificado}" />
+                    </p:column>
+                    <p:column headerText="Duración">
+                        <p:outputLabel value="#{certificacion.duracion}" />
+                    </p:column>
 
-                    <label class="control-label">Modalidad:</label>    
-                    <select class="form-control" name="modalidad" onchange="submit()">
-                        <option>--Elegir--</option>
-                        <%
-                            for (CarreraProfesional carreraProfesional : carreraProfesionalDAO.SeleccionarModalidad()) {
-                                if (carreraProfesional.getModalidad().equals(modalidad)) {
-                                    out.print("<option value=" + carreraProfesional.getModalidad() + " selected>" + carreraProfesional.getModalidad());
-                                } else {
-                                    out.print("<option value=" + carreraProfesional.getModalidad() + ">" + carreraProfesional.getModalidad());
-                                }
-                            }
-                        %>    
-                    </select> 
+                </p:dataTable>
+            </h:form>
+        </center>
 
-
-
-                </div>    
-            </form>
-            <table class="table table-hover">
-                <thead>
-                    <tr class="text-white bg-black">
-                        <th>Código<th>Nombre     
-                    </tr>
-                </thead>   
-                <%
-                    for (CarreraProfesional carreraProfesional : carrerasPorModalidad) {
-                %>
-                <tr>
-                    <td><%=carreraProfesional.getCodigo()%></td>
-                    <td><%=carreraProfesional.getNombre()%></td>
-
-                </tr>
-                <%
-                    }
-                %> 
-            </table>
-
-        </main>
 
         <footer>
             <p class="fondo">Todos los derechos reservados</p>
         </footer>
-    </body>
+    </h:body>
+
 </html>
+
+
