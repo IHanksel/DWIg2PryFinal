@@ -116,7 +116,7 @@
                     </tbody>
                 </table>
             </section>
-            <input type="hidden" name="opcionAsignatura" value="4">
+
         </main>
 
         <footer>

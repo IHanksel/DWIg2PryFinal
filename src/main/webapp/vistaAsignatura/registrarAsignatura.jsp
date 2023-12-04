@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="form-group button-container">
-                        <td><input type="hidden" name="opcion" value="1"></td>
+                        <td><input type="hidden" name="opcion" value="4"></td>
                         <input type="submit" value="Guardar">
                     </div>
                 </form>
