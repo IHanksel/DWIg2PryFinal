@@ -5,6 +5,7 @@
 package controlador;
 
 import dao.AlumnoDAO;
+import dao.AsignaturaDAO;
 import dao.CarreraProfesionalDAO;
 import dao.DocenteDAO;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Alumno;
+import modelo.Asignatura;
 import modelo.CarreraProfesional;
 import modelo.Docente;
 
@@ -24,6 +26,7 @@ public class ControlRegistro extends HttpServlet {
 
     AlumnoDAO alumnoDAO = new AlumnoDAO();
     DocenteDAO docenteDAO = new DocenteDAO();
+    AsignaturaDAO asignaturaDAO = new AsignaturaDAO();
     CarreraProfesionalDAO carreraProfesionalDAO = new CarreraProfesionalDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -37,6 +40,9 @@ public class ControlRegistro extends HttpServlet {
         }
         if (opcion == 3) {
             ingresarDatosCarreraProfesional(request, response);
+        }
+        if (opcion == 4) {
+            ingresarDatosAsignatura(request, response);
         }
     }
 
@@ -87,6 +93,20 @@ public class ControlRegistro extends HttpServlet {
 
         carreraProfesionalDAO.guardar(carreraProfesional);
         String pagina = "/vistaCarreraProfesional/registrarCarreraProfesional.jsp";
+        request.getRequestDispatcher(pagina).forward(request, response);
+    }
+
+    protected void ingresarDatosAsignatura(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        Asignatura asignatura = new Asignatura();
+        asignatura.setCodigo(request.getParameter("codigo"));
+        asignatura.setCarrera(request.getParameter("carrera"));
+        asignatura.setNombre(request.getParameter("nombre"));
+        asignatura.setCreditos(Integer.parseInt(request.getParameter("creditos")));
+
+        asignaturaDAO.insertar(asignatura);
+        String pagina = "/vistaAsignatura/registrarAsignatura.jsp";
         request.getRequestDispatcher(pagina).forward(request, response);
     }
 

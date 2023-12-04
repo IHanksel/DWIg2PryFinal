@@ -104,7 +104,7 @@
                             <td><%=asignatura.getCodigo()%></td><td><%=asignatura.getCarrera()%></td>
                             <td><%=asignatura.getNombre()%></td><td><%=asignatura.getCreditos()%></td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/ControlMantenimiento?opcion=12&codigo=${asignatura.codigo}">Modificar</a>
+                                <a href="${pageContext.request.contextPath}/ControlMantenimiento?opcion=10&codigo=${asignatura.codigo}">Modificar</a>
                             </td>
                             <td>
                                 <a href="${pageContext.request.contextPath}/ControlMantenimiento?opcion=11&codigo=${asignatura.codigo}">Eliminar</a>

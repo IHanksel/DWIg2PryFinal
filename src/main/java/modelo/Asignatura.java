@@ -1,4 +1,3 @@
-
 package modelo;
 
 /**
@@ -6,6 +5,7 @@ package modelo;
  * @author abdel
  */
 public class Asignatura {
+
     private String codigo; //Estándar de código: AS001
     private String carrera;
     private String nombre;
@@ -19,9 +19,9 @@ public class Asignatura {
     }
 
     public Asignatura() {
-        
+
     }
-    
+
     public String getCodigo() {
         return codigo;
     }
@@ -53,5 +53,5 @@ public class Asignatura {
     public void setCreditos(int creditos) {
         this.creditos = creditos;
     }
-    
+
 }

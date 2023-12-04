@@ -85,8 +85,33 @@
                 </div>
             </section>
 
-            <section>
-                <h1>Aqui empezar</h1>
+            <section class="ingresar-datos">
+                <form action="/SistemaUniversidad/ControlRegistro" method="post">
+                    <div class="form-group">
+                        <label for="codigo">Código:</label>
+                        <input type="text" id="codigo" name="codigo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="carrera">Carrera:</label>
+                        <input type="text" id="carrera" name="carrera">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre de Asignatura:</label>
+                        <input type="text" id="nombre" name="nombre">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="creditos">Creditos:</label>
+                        <input type="text" id="creditos" name="creditos">
+                    </div>
+
+                    <div class="form-group button-container">
+                        <td><input type="hidden" name="opcion" value="1"></td>
+                        <input type="submit" value="Guardar">
+                    </div>
+                </form>
             </section>
         </main>
 

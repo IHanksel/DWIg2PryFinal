@@ -5,6 +5,7 @@
 package controlador;
 
 import dao.AlumnoDAO;
+import dao.AsignaturaDAO;
 import dao.CarreraProfesionalDAO;
 import dao.DocenteDAO;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Alumno;
+import modelo.Asignatura;
 import modelo.CarreraProfesional;
 import modelo.Docente;
 
@@ -25,6 +27,7 @@ public class ControlMantenimiento extends HttpServlet {
     AlumnoDAO alumnoDAO = new AlumnoDAO();
     CarreraProfesionalDAO carreraProfesionalDAO = new CarreraProfesionalDAO();
     DocenteDAO docenteDAO = new DocenteDAO();
+    AsignaturaDAO asignaturaDAO = new AsignaturaDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -57,6 +60,16 @@ public class ControlMantenimiento extends HttpServlet {
         }
         if (opcion == 9) {
             cambiarDatosModificadosDeDocente(request, response);
+        }
+
+        if (opcion == 10) {
+            modificarAsignatura(request, response);
+        }
+        if (opcion == 11) {
+            eliminarAsignatura(request, response);
+        }
+        if (opcion == 12) {
+            cambiarDatosModificadosDeAsignatura(request, response);
         }
     }
 
@@ -151,6 +164,36 @@ public class ControlMantenimiento extends HttpServlet {
 
         docenteDAO.modificarDocente(docente);
         String pag = "/vistaDocente/mantenimientoDocente.jsp";
+        request.getRequestDispatcher(pag).forward(request, response);
+    }
+
+    protected void modificarAsignatura(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String codigo = request.getParameter("codigo");
+        Asignatura asignatura = asignaturaDAO.consulta(codigo);
+        request.setAttribute("dato", asignatura);
+        String pag = "/vistaAsignatura/editarAsignatura.jsp";
+        request.getRequestDispatcher(pag).forward(request, response);
+    }
+
+    protected void eliminarAsignatura(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String codigo = request.getParameter("codigo");
+        asignaturaDAO.eliminarAsignatura(codigo);
+        String pag = "/vistaAsignatura/mantenimientoAsignatura.jsp";
+        request.getRequestDispatcher(pag).forward(request, response);
+    }
+
+    protected void cambiarDatosModificadosDeAsignatura(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Asignatura asignatura = new Asignatura();
+        asignatura.setCodigo(request.getParameter("codigo"));
+        asignatura.setCarrera(request.getParameter("carrera"));
+        asignatura.setNombre(request.getParameter("nombre"));
+        asignatura.setCreditos(Integer.parseInt(request.getParameter("creditos")));
+
+        asignaturaDAO.modificarAsignatura(asignatura);
+        String pag = "/vistaAsignatura/mantenimientoAsignatura.jsp";
         request.getRequestDispatcher(pag).forward(request, response);
     }
 
