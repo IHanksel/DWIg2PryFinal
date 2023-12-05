@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html mlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Insert title here</title>
+        <link th:href="@{/adminlte.min.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container mt-6">
+            <div class="col-sm-5 mx-auto">
+                <form th:action="@{/save}" method="Post" th:object="${convenio}">
+                    <div class="card">
+                        <div class="card-header" th:text="${titulo}">
+                            <h3>Datos del Convenio</h3>
+                        </div>
+                        <div class"card-body">
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input type="text" th:field="*{id}" 
+                                       class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Universidad</label>
+                                <input type="text" th:field="*{nombre_universidad}" 
+                                       class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>País</label>
+                                <input type="text" th:field="*{pais}" 
+                                       class="form-control">
+                            </div>
+                            <label>Tipo</label>
+                            <input type="text" th:field="*{tipo}" class="form-control">
+
+                            <label>Meses de duración</label>
+                            <input type="text" th:field="*{duracion_mes}" class="form-control">
+                        </div>
+                        <div class="card-footer">
+                            <input type="submit" value="guardar" class="btn btn-success btn-block">
+                        </div>
+                    </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
