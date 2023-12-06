@@ -88,7 +88,6 @@
             </section>
 
             <section>
-                <!-- Formulario de Registro de Docente -->
                 <form action="/SistemaUniversidad/ControlRegistro" method="post">
                     <div class="form-group">
                         <label for="codigo">Código:</label>
