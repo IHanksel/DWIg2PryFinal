@@ -8,14 +8,13 @@
     <h:head>
         <meta charset="UTF-8" />
         <title>Reportes de Alumnos</title>
+        <link href="/SistemaUniversidad/bootstrap/adminlte.min.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="/SistemaUniversidad/css/reset.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/header.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
-        <link rel="stylesheet" href="/SistemaUniversidad/css/adminlte.min.css" />
-        <link href="../css/reportes.css" rel="stylesheet" type="text/css"/>
-        <link href="../bootstrap/adminlte.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="/SistemaUniversidad/css/registrar.css" />
     </h:head>
 
     <h:body>
@@ -85,8 +84,8 @@
             </section>
 
             <h:form>
-                <h:outputLabel for="consulta">Ingrese Nombres:</h:outputLabel>
-                <h:inputText id="consulta" value="#{reporteBean.consulta}" />
+                <h:outputLabel for="consulta" class="ingresar-datos">Ingrese Nombres:</h:outputLabel>
+                <h:inputText class="form-group" id="consulta" value="#{reporteBean.consulta}"/>
                 <h:commandButton value="Filtrar" action="#{reporteBean.filtrarAlumnosPorNombre}" />
 
                 <h:dataTable value="#{reporteBean.listaAlumnos}" var="alumno" class="table table-hover bg-black">

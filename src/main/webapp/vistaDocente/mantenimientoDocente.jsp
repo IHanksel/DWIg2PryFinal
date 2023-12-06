@@ -12,14 +12,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Mantenimiento de Docentes</title>
+        <link href="/SistemaUniversidad/bootstrap/adminlte.min.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="/SistemaUniversidad/css/reset.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/header.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
-        <link href="../css/mantenimiento.css" rel="stylesheet" type="text/css"/>
-        <link href="../css/adminlte.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/SistemaUniversidad/css/mantenimiento.css" rel="stylesheet" type="text/css"/>
+        
     </head>
     <body id="inicio">
         <header class="header-transparente">

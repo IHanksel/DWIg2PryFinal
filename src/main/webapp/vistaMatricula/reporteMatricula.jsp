@@ -13,12 +13,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="/SistemaUniversidad/bootstrap/adminlte.min.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="/SistemaUniversidad/css/reset.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/header.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
-        <link rel="stylesheet" href="/SistemaUniversidad/css/adminlte.min.css" />
     </head>
     <body id="inicio">
         <header class="header-transparente">

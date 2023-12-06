@@ -15,8 +15,7 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
-        <link href="../css/adminlte.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../css/registrar.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="/SistemaUniversidad/css/registrar.css" />
     </head>
     <body id="inicio">
         <header class="header-transparente">

@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
         <link rel="stylesheet" href="/SistemaUniversidad/css/registrar.css" />
-        <link href="../css/adminlte.min.css" rel="stylesheet" type="text/css"/>
+        
     </head>
     <body id="inicio">
         <header class="header-transparente">
@@ -87,7 +87,7 @@
                 </div>
             </section>
 
-            <section>
+            <section class="ingresar-datos">
                 <form action="/SistemaUniversidad/ControlRegistro" method="post">
                     <div class="form-group">
                         <label for="codigo">Código:</label>

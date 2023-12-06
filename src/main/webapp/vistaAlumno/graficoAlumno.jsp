@@ -91,7 +91,7 @@
                     <input type="radio" name="op" value="line" onclick="submit()" >Lineal
                     <br>
                 </form>
-                <iframe name="zona" width="100%" height="500"></iframe>   
+                <iframe name="zona" width="100%" height="1200"></iframe>   
             </section>
         </main>
 
