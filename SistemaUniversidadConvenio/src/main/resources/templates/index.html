@@ -1,0 +1,44 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Insert title here</title>
+        <link th:href="@{/adminlte.min.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container mt-4"> 
+            <a th:href="@{/new}" class="btn btn-outline-success">nuevo</a>
+            <br>
+            <br>
+            <h2>Lista de Convenios con Universidades</h2>   
+            <table class="table table-hover">
+                <thead>
+                    <tr class="bg-black text-white">
+                        <th>ID<th>Universidad<th>País<th>Tipo
+                        <th>Meses de duración<th>Acción
+                    </tr>   
+                </thead>    
+                <tbody>
+                    <tr th:each="convenio : ${listado}">
+                        <td th:text="${convenio.id}"></td>
+                        <td th:text="${convenio.nombre_universidad}"></td>
+                        <td th:text="${convenio.pais}"></td>
+                        <td th:text="${convenio.tipo}"></td>
+                        <td th:text="${convenio.duracion_mes}"></td>
+                        <td>
+                            <a class="btn btn-dark" th:href="@{/editar/}+
+                               ${convenio.id}">editar</a>
+                            <a class="btn bg-danger" th:href="@{/eliminar/}+
+                               ${convenio.id}">Anular</a>
+                        </td>
+                    </tr>
+                
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <a href="http://localhost:8080/SistemaUniversidad/index.html" class="btn btn-success">Volver a Sistema de Matrícula</a>
+        </div>    
+    </body>
+</html>
